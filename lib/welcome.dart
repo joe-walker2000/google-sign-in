@@ -4,7 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'main.dart';
 
 class WelcomeUserWidget extends StatelessWidget {
-
   GoogleSignIn _googleSignIn;
   User _user;
   WelcomeUserWidget(User user, GoogleSignIn signIn) {
@@ -18,12 +17,14 @@ class WelcomeUserWidget extends StatelessWidget {
         title: Text('signed in Using Google'),
       ),
       body: Center(
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RaisedButton(
-              onPressed: (){},
+              onPressed: () {
+                _googleSignIn.signOut();
+                Navigator.pop(context);
+              },
               child: Text('you are logged in With Google'),
             )
           ],
