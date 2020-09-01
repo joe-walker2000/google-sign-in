@@ -1,7 +1,9 @@
+import 'package:auth_test/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'main.dart';
+import 'models/entites.dart';
 
 class WelcomeUserWidget extends StatelessWidget {
   GoogleSignIn _googleSignIn;
@@ -23,6 +25,8 @@ class WelcomeUserWidget extends StatelessWidget {
             RaisedButton(
               onPressed: () {
                 _googleSignIn.signOut();
+                print(_user.uid);
+
                 Navigator.pop(context);
               },
               child: Text('you are logged in With Google'),
