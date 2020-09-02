@@ -34,7 +34,6 @@ class _SignInState extends State<SignIn> {
       }
     }
   }
-  //Widget signWithEmailButton = _buildButtonWidget('Sign In With Email', signInWithEmail)
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +103,9 @@ class _SignInState extends State<SignIn> {
                         _auth.onGoogleSignIn();
                       }),
                       SizedBox(height: 20),
-                      _buildButtonWidget('Sign In With Facebook', () {}),
+                      _buildButtonWidget('Sign In With Facebook', () async {
+                        _auth.fbSignIn();
+                      }),
                       Text(
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),

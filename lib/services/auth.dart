@@ -1,10 +1,12 @@
 import 'package:auth_test/models/entites.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class Auth {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FacebookLogin _fbLogin = FacebookLogin();
 
   // auth change user stream
 
@@ -63,6 +65,19 @@ class Auth {
 
   User _userFromFirebaseUser(FirebaseUser user) {
     return user != null ? User(uid: user.uid) : null;
+  }
+
+  //sign in with facebook
+  Future<User> fbSignIn() async {
+    FirebaseUser user;
+    final FacebookLoginResult facebookLoginResult =
+        await _fbLogin.logIn(['email', 'public_profile']);
+    FacebookAccessToken facebookAccessToken = facebookLoginResult.accessToken;
+    AuthCredential authCredential = FacebookAuthProvider.getCredential(
+        accessToken: facebookAccessToken.token);
+    user = (await _auth.signInWithCredential(authCredential)).user;
+
+    return _userFromFirebaseUser(user);
   }
 
   // sign out
